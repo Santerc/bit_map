@@ -1,0 +1,11 @@
+<view class="login-container">
+  <view class="title">登录</view>
+
+  <view class="input-group">
+    <input class="input" bindinput="getZhanghao" placeholder="请输入账号" />
+    <input class="input" bindinput="getMima" placeholder="请输入密码" type="password" />
+  </view>
+
+  <button bindtap="login" class="btn-primary">登录</button>
+  <button bindtap="goToRegister" class="btn-primary" capture-catch:touchend="login">注册</button>
+</view>

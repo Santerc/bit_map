@@ -1,0 +1,21 @@
+<!-- <view class="page" style="background: url('https://6269-bitmap-9gg1967ve78b900b-1332025208.tcb.qcloud.la/bit_bkg.jpg?sign=698b6d7fb2077713503545433f13199a&t=1732276792'); background-size: 100% 100%;">
+  <view class="button_container">
+    <navigator class="button" url="map/details">
+      <text>团队简介</text>
+    </navigator>
+    <navigator class="button" url="map/index">
+      <text>逛逛{{shortName}}</text>
+    </navigator>
+  </view>
+</view> -->
+<view class="page" style="background: url('https://6269-bitmap-9gg1967ve78b900b-1332025208.tcb.qcloud.la/bit_bkg.jpg?sign=698b6d7fb2077713503545433f13199a&t=1732276792'); background-size: cover; background-position: center;">
+  <view class="title" style="position: relative; left: 0rpx; top: -208rpx">京工智图</view>
+  <view class="button_container">
+    <navigator class="button" url="map/details" style="position: relative; left: 0rpx; top: -114rpx">
+      <text>团队简介</text>
+    </navigator>
+    <navigator class="button" url="map/index" style="position: relative; left: 0rpx; top: -83rpx">
+      <text>逛逛{{shortName}}</text>
+    </navigator>
+  </view>
+</view>

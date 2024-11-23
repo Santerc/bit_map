@@ -1,0 +1,80 @@
+/* pages/usr/mydata.wxss */
+/* 主容器 */
+.me, .login-ok {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx;
+  background-color: #f7f7f7;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.05); /* 微妙的阴影 */
+  width: 90%;
+  margin: 60rpx auto;
+}
+
+/* 未登录按钮 */
+.btn-login, .btn-register {
+  width: 100%;
+  height: 88rpx;
+  font-size: 30rpx;
+  margin-top: 20rpx;
+  border-radius: 12rpx;
+}
+
+.btn-login {
+  color: #fff;
+  background-color: #1aad19; /* 微信绿色 */
+  box-shadow: 0 4rpx 8rpx rgba(26, 173, 25, 0.3); /* 轻微阴影 */
+}
+
+.btn-register {
+  color: #1aad19;
+  background-color: #fff;
+  border: 1px solid #1aad19;
+  margin-top: 15rpx;
+  box-shadow: 0 4rpx 8rpx rgba(26, 173, 25, 0.2);
+}
+
+/* 登录成功界面 */
+.login-ok {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.welcome-text {
+  font-size: 34rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.user-info {
+  margin-top: 10rpx;
+}
+
+.user-name {
+  font-size: 28rpx;
+  color: #555;
+}
+
+/* 退出按钮 */
+.btn-logout {
+  width: 100%;
+  height: 88rpx;
+  font-size: 30rpx;
+  color: #fff;
+  background-color: #e44a4a; /* 红色 */
+  border-radius: 12rpx;
+  margin-top: 30rpx;
+  box-shadow: 0 4rpx 8rpx rgba(228, 74, 74, 0.3); /* 退出按钮的阴影 */
+}
+
+/* 按钮点击效果 */
+.btn-login:active, .btn-register:active, .btn-logout:active {
+  opacity: 0.8; /* 按钮点击时透明度变化 */
+}

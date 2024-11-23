@@ -1,0 +1,15 @@
+<view class="form-container" style="height: 1268rpx; display: flex; box-sizing: border-box">
+  <view class="title">注册</view>
+  <input class="input" bindinput="getName" placeholder="请输入用户名" />
+  <input class="input" bindinput="getZhangHao" placeholder="请输入用户账号" />
+  <input class="input" bindinput="getMiMa" placeholder="请输入密码" type="password" />
+  
+  <view class="button-group">
+    <button bindtap="register" class="btn-primary">注册</button>
+    <button class="btn-secondary" bindtap="returnLogin" capture-catch:touchend="returnLogin">返回登录</button>
+  </view>
+</view>
+
+
+
+

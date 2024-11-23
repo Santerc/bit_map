@@ -1,0 +1,65 @@
+/* General page styling */
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  background: url('https://6269-bitmap-9gg1967ve78b900b-1332025208.tcb.qcloud.la/bit_bkg.jpg?sign=698b6d7fb2077713503545433f13199a&t=1732276792') no-repeat center center;
+  background-size: cover;
+}
+
+/* Title styling */
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Shadow effect for better readability */
+}
+
+/* Button container styling */
+.button_container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Space between buttons */
+  margin-top: 40px; /* Spacing between title and buttons */
+}
+
+/* Button styling */
+.button {
+  display: block;
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  color: white;
+  text-align: center;
+  border-radius: 30px;
+  text-decoration: none;
+  width: 250px; /* Width for consistency */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+.button text {
+  font-weight: bold;
+}
+
+/* Adjust for smaller screens */
+@media screen and (max-width: 600px) {
+  .button {
+    width: 200px; /* Adjust button size on small screens */
+  }
+
+  .title {
+    font-size: 28px; /* Smaller title font for mobile */
+  }
+}

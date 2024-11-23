@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/index",
+    "pages/map/index",
+    "pages/map/details",
+    "pages/map/polyline",
+    "pages/map/search",
+    "pages/web-views/web-views",
+    "pages/usr/login",
+    "pages/usr/mydata",
+    "pages/usr/register"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于辅助规划路线"
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#079df2",
+    "navigationBarTitleText": "校园导览",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "navigateToMiniProgramAppIdList": [
+    "wx8afedfde046e5916"
+  ]
+}
