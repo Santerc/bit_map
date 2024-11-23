@@ -1,12 +1,14 @@
 <view style="width: 100%; height: 100vh; position: relative;">
   <!-- 顶部建筑类型选择 -->
-  <scroll-view scroll-x="true" style="position: absolute; top: 0; width: 100%; z-index: 10; background: rgba(255, 255, 255, 0.9);">
-    <view class="top-swich" style="width:{{buildlData.length * 120 < windowWidth ? windowWidth: buildlData.length * 120}}rpx;">
-      <label wx:for="{{buildlData}}" wx:key="id" id="{{index}}" bindtap="changePage" class="top-swich-btn {{isSelectedBuildType == index ? 'active' : ''}}">
-        {{item.name}}
-      </label>
-    </view>
-  </scroll-view>
+  <scroll-view scroll-x="true" style="position: fixed; top: 0; width: 100%; z-index: 10; background: rgba(255, 255, 255, 0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+  <view class="top-switch" style="width:{{buildlData.length * 120 < windowWidth ? windowWidth: buildlData.length * 120}}rpx;">
+    <label wx:for="{{buildlData}}" wx:key="id" id="{{index}}" bindtap="changePage" 
+           class="top-switch-btn {{isSelectedBuildType == index ? 'active' : ''}}">
+      {{item.name}}
+    </label>
+  </view>
+</scroll-view>
+
 
   <!-- 地图组件 -->
   <map 

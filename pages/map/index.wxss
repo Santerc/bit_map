@@ -6,27 +6,33 @@ pages/map/map.wxss
   padding: 10px;
 }
 
-.top-swich {
-  background-color: #079df2;
-  height: 6vh;
-  color: white;
+.top-switch {
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
 }
 
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  color: transparent;
+.top-switch-btn {
+  padding: 10rpx 20rpx;
+  margin: 5rpx;
+  font-size: 28rpx;
+  text-align: center;
+  color: #333;
+  border-radius: 30rpx;
+  transition: all 0.3s;
 }
 
-.top-swich-btn {
-  background-color: none;
-  letter-spacing: 3rpx;
-  height: 65rpx;
-  color: #fff;
-  font-size: 30rpx;
+.top-switch-btn.active {
+  background: linear-gradient(90deg, #5079ff, #1900ff);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  box-shadow: 0 4rpx 8rpx rgba(0, 174, 255, 0.3);
 }
+
+.top-switch-btn:hover {
+  background: #66CCFF;
+}
+
 
 .active {
   border-bottom: solid white;
