@@ -11,7 +11,7 @@
   line-height: 30px;
   text-align: center;
   padding: 3px 5px 3px 5px;
-  color: #fff;
-  background: #0091ff;
+  color: rgb(14, 9, 9);
+  background: #0091FF;
   border-radius: 5px;
 }
