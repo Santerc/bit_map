@@ -27,12 +27,15 @@
   >
     <!-- 地图悬浮控件 -->
     <cover-view class="controls" style="position: absolute; top: 10rpx; right: 10rpx; z-index: 20; height: 1281rpx; display: block; box-sizing: border-box; left: 638rpx">
-      <cover-image class="usr" src="/img/usr.png" style="height: 74rpx; width: 74rpx; position: relative; left: 0rpx; top: 1033rpx" bind:touchend="mydata"></cover-image>
-      <cover-view bindtap="navigateSearch" style="margin-top: 10rpx; height: 1112rpx; display: block; box-sizing: border-box">
-        <cover-image style="position: relative; left: 0rpx; top: 1024rpx" class="img" src="/img/search.png" />
+      <cover-view style="margin-top: 10rpx; height: 179rpx; display: block; box-sizing: border-box">
+        <cover-image bindtap="mydata" class="usr" src="/img/usr.png" style="height: 74rpx; width: 74rpx; position: relative; left: 16rpx; top: 93rpx"  capture-bind:touchend="mydata"></cover-image>
+      </cover-view>
+      
+      <cover-view style="margin-top: 10rpx; height: 645rpx; display: block; box-sizing: border-box">
+        <cover-image bindtap="navigateSearch" style="position: relative; left: 13rpx; top: 547rpx" class="img" src="/img/search.png" />
       </cover-view>
       <cover-view bindtap="location" style="margin-top: 10rpx; height: 99rpx; display: block; box-sizing: border-box; width: 104rpx">
-        <cover-image style="position: relative; left: 0rpx; top: -10rpx" class="img" src="/img/location.png" />
+        <cover-image style="position: relative; left: 13rpx; top: 10rpx" class="img" src="/img/location.png" />
       </cover-view>
     </cover-view>
   </map>

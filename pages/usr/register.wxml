@@ -5,7 +5,7 @@
   <input class="input" bindinput="getMiMa" placeholder="请输入密码" type="password" />
   
   <view class="button-group">
-    <button bindtap="register" class="btn-primary">注册</button>
+    <button bindtap="register" class="btn-primary" bind:touchend="register">注册</button>
     <button class="btn-secondary" bindtap="returnLogin" capture-catch:touchend="returnLogin">返回登录</button>
   </view>
 </view>

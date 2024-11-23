@@ -41,22 +41,28 @@ Page({
   
   //登陆
   wx.cloud.database().collection('user').where({
-   zhanghao: zhanghao
+   phone: String(zhanghao)
   }).get({
    success(res) {
     console.log("获取数据成功", res)
     let user = res.data[0]
     console.log("user", user)
-    if (mima == user.mima) {
+    if(user == undefined){
+      console.log('登陆失败')
+     wx.showToast({
+      icon: 'none',
+      title: '账号或密码不正确',
+     })
+    }else if (mima == user.password) {
      console.log('登陆成功')
      wx.showToast({
       title: '登陆成功',
      })
-     wx.navigateTo({
-      url: '/pages/me/me',
-     })
      //保存用户登陆状态
      wx.setStorageSync('user', user)
+     wx.navigateTo({
+      url: '/pages/usr/mydata',
+     })
     } else {
      console.log('登陆失败')
      wx.showToast({

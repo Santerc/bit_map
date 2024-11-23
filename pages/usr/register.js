@@ -27,7 +27,7 @@ Page({
   },
   
   //注册
-  zhuce() {
+  register() {
   let name = this.data.name
   let zhanghao = this.data.zhanghao
   let mima = this.data.mima
@@ -70,8 +70,8 @@ Page({
   wx.cloud.database().collection('user').add({
    data: {
     name: name,
-    zhanghao: zhanghao,
-    mima: mima
+    phone: zhanghao,
+    password: mima
    },
    success(res) {
     console.log('注册成功', res)

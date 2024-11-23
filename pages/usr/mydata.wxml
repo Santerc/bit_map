@@ -6,9 +6,21 @@
 </view>
 <!-- 登录成功 -->
 <view wx:else class="login-ok" > 
-  <text class="text">登录成功</text>
-  <view>
-    <text class="user">账号：{{name}}</text>
+  <view class="container">
+  <!-- 登录成功提示 -->
+  <text class="success-text">登录成功</text>
+  
+  <!-- 用户信息展示 -->
+  <view class="user-info">
+    <text class="user-label">账号：</text>
+    <text class="user-name">{{name}}</text>
   </view>
-  <button bindtap="logout">退出</button>
+  
+  <!-- 操作按钮区 -->
+  <view class="button-container">
+    <button class="mainpage-btn" bindtap="mainpage">返回主页</button>
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+</view>
+
 </view>

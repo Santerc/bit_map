@@ -14,6 +14,7 @@ Page({
     islocation: true
   },
   onLoad: function () {
+    wx.cloud.init();
     wx.showShareMenu({
       withShareTicket: true
     })

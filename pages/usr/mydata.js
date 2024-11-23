@@ -43,5 +43,12 @@ Page({
     loginOK: false
    })
   }
+  },
+
+  mainpage(){
+    wx.navigateTo({
+      url: '/pages/map/index',
+     })
   }
+
   })
