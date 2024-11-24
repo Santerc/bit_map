@@ -1,24 +1,26 @@
 <view style="width: 100%; height: 100vh; position: relative;">
-  <!-- 顶部建筑类型选择 -->
   <scroll-view scroll-x="true" style="position: fixed; top: 0; width: 100%; z-index: 10; background: rgba(255, 255, 255, 0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-  <view class="top-switch" style="width:{{buildlData.length * 120 < windowWidth ? windowWidth: buildlData.length * 120}}rpx;">
-    <label wx:for="{{buildlData}}" wx:key="id" id="{{index}}" bindtap="changePage" 
+  <view class="top-switch" style="width:{{buildlData.length * 120 < windowWidth ? windowWidth : buildlData.length * 120}}rpx;">
+    <!-- 遍历建筑类型 -->
+    <label wx:for="{{buildlData}}" wx:key="type" id="{{index}}" bindtap="changePage" 
            class="top-switch-btn {{isSelectedBuildType == index ? 'active' : ''}}">
-      {{item.name}}
+      {{item.type}} <!-- 显示建筑类型名称 -->
+      <text wx:if="{{item.buildings.length > 1}}"> ({{item.buildings.length}})</text> <!-- 显示建筑数量 -->
     </label>
   </view>
 </scroll-view>
+
 
 
   <!-- 地图组件 -->
   <map 
     longitude="{{longitude}}" 
     latitude="{{latitude}}" 
-    scale="{{buildlData[isSelectedBuildType].scale}}" 
-    markers="{{buildlData[isSelectedBuildType].data}}" 
+    scale="{{scale}}" 
+    markers="{{markers}}"  
     bindmarkertap="markertap" 
     bindregionchange="regionchange" 
-    include-points="{{buildlData[isSelectedBuildType].data}}" 
+    include-points="{{markers}}" 
     show-location="{{islocation ? 'true' : 'false'}}" 
     enable-overlooking="true" 
     enable-traffic="true" 
@@ -26,15 +28,15 @@
     style="width: 100%; height: 100vh;"
   >
     <!-- 地图悬浮控件 -->
-    <cover-view class="controls" style="position: absolute; top: 10rpx; right: 10rpx; z-index: 20; height: 1281rpx; display: block; box-sizing: border-box; left: 638rpx">
-      <cover-view style="margin-top: 10rpx; height: 179rpx; display: block; box-sizing: border-box">
+    <cover-view class="controls" style="position: absolute; top: 341rpx; right: 10rpx; z-index: 20; height: 1281rpx; display: block; box-sizing: border-box; left: 647rpx">
+      <cover-view style="margin-top: 10rpx; height: 179rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: 779rpx">
         <cover-image bindtap="mydata" class="usr" src="/img/usr.png" style="height: 74rpx; width: 74rpx; position: relative; left: 16rpx; top: 93rpx"  capture-bind:touchend="mydata"></cover-image>
       </cover-view>
       
-      <cover-view style="margin-top: 10rpx; height: 645rpx; display: block; box-sizing: border-box">
-        <cover-image bindtap="navigateSearch" style="position: relative; left: 13rpx; top: 547rpx" class="img" src="/img/search.png" />
+      <cover-view style="margin-top: 10rpx; height: 179rpx; display: block; box-sizing: border-box; position: relative; left: 10rpx; top: 10rpx">
+        <cover-image bindtap="navigateSearch" style="position: relative; left: 8rpx; top: 89rpx" class="img" src="/img/search.png" />
       </cover-view>
-      <cover-view bindtap="location" style="margin-top: 10rpx; height: 99rpx; display: block; box-sizing: border-box; width: 104rpx">
+      <cover-view bindtap="location" style="margin-top: 10rpx; height: 99rpx; display: block; box-sizing: border-box; width: 104rpx; position: relative; left: 5rpx; top: 72rpx">
         <cover-image style="position: relative; left: 13rpx; top: 10rpx" class="img" src="/img/location.png" />
       </cover-view>
     </cover-view>

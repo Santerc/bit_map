@@ -1,22 +1,35 @@
-<!--pages/map/details.wxml-->
 <view>
-  <swiper class="swiper" indicator-dots="{{building.img.length == 1 ? false : true}}" indicator-active-color="#fff" autoplay="1" interval="3000" duration="500">
-    <block wx:for="{{building.img}}" wx:key="*this">
-      <swiper-item>
-        <image class="swiper-image" src="{{imgCDN}}{{item  + '?imageMogr2/thumbnail/1500x/interlace/1/blur/1x0/quality/100|imageslim'}}"> </image>
-      </swiper-item>
-    </block>
-  </swiper>
-  <view class="building">
+  <!-- 建筑物信息展示 -->
+  <view class="building" style="position: relative; left: 0rpx; top: -580rpx">
     <view class="buildingName">{{building.name}}</view>
     <navigator class="nav_map" url='polyline?latitude={{building.latitude}}&longitude={{building.longitude}}'>
       <image src="/img/location.svg"> </image>
     </navigator>
   </view>
 
+  <!-- 建筑描述 -->
   <view class="descript">
-    <view class='description'>
+    <view class='description' style="position: relative; left: 0rpx; top: -589rpx">
       <rich-text nodes="{{ building.description }}"></rich-text>
+    </view>
+  </view>
+
+  <!-- 留言部分 -->
+  <view class="message-section">
+    <!-- 留言列表 -->
+    <view class="message-list">
+      <view wx:for="{{messages}}" wx:key="index" class="message-item">
+        <!-- 显示建筑物名称和留言内容 -->
+        <view class="message-header">{{item.buildingName}} - {{item.author}}:</view>
+        <view class="message-content">{{item.content}}</view>
+        <view class="message-time">{{item.timestamp}}</view>
+      </view>
+    </view>
+
+    <!-- 留言输入框和发送按钮 -->
+    <view class="input-container">
+      <input class="message-input" bindinput="onInput" placeholder="输入留言" />
+      <button bindtap="sendMessage" class="send-button">发送</button>
     </view>
   </view>
 </view>
