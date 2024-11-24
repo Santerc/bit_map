@@ -1,20 +1,30 @@
 Page({
   data: {
     building: {}, // 当前建筑物信息
-    messages: [], // 留言列表
+    messages: [], // 当前建筑物的留言列表
     inputContent: "", // 留言输入框内容
+    user: null, // 存储当前用户信息
   },
 
   // 页面加载时获取建筑物详情和留言
   onLoad: function (options) {
-    this.fetchBuildingDetails(options.buildingId);
-    this.fetchMessages(options.buildingId);
+    const bid = options.bid; // 获取传递的建筑物 ID
+    if (bid) {
+      this.fetchBuildingDetails(bid); // 获取建筑物详情
+      this.fetchMessages(bid); // 获取该建筑物的留言
+    } else {
+      console.error('建筑物 ID 无效');
+    }
+
+    // 获取当前用户信息（这里假设用户信息保存在本地存储中）
+    const user = wx.getStorageSync('user');
+    this.setData({ user });
   },
 
   // 获取建筑物详情
   fetchBuildingDetails: function (buildingId) {
     const db = wx.cloud.database();
-    db.collection('buildings').doc(buildingId).get()
+    db.collection('location').doc(buildingId).get()
       .then(res => {
         this.setData({
           building: res.data
@@ -25,16 +35,16 @@ Page({
       });
   },
 
-  // 获取建筑物留言
+  // 获取指定建筑物的留言
   fetchMessages: function (buildingId) {
     const db = wx.cloud.database();
-    db.collection('messages')
-      .where({ buildingId: buildingId }) // 根据建筑物 ID 获取留言
+    db.collection('comment')
+      .where({ posid: buildingId })  // 根据建筑物的 posid 查询留言
       .orderBy('timestamp', 'desc')  // 按时间倒序排列
       .get()
       .then(res => {
         this.setData({
-          messages: res.data
+          messages: res.data  // 将查询结果中的留言数据赋值给 messages
         });
       })
       .catch(err => {
@@ -60,23 +70,36 @@ Page({
       return;
     }
 
-    const author = '游客'; // 可以替换为当前用户昵称
-    const timestamp = new Date().toISOString(); // 留言时间
+    const user = this.data.user;
+    if (!user) {
+      // 用户未登录，显示提示
+      wx.showToast({
+        title: '请登录后留言',
+        icon: 'none',
+      });
+      return;
+    }
 
+    const author = user.name || '游客'; // 用户的昵称，如果没有则使用 '游客'
+    const timestamp = new Date().toISOString(); // 留言时间
     const buildingId = this.data.building._id; // 当前建筑物的 ID
     const buildingName = this.data.building.name; // 当前建筑物名称
 
+    // 构建留言对象
+    const message = {
+      author: author,
+      content: content,
+      liked: 0,
+      posid: buildingId, // 关联建筑物 ID
+      rootcommentid: "0", // 根留言 ID（如果是直接留言，设置为 0）
+      usrid: user._id || "\"f5835fa6674183f3003d5afb4047f615\"", // 用户 ID（假设从用户信息中获取，未登录时使用默认值）
+    };
+
     // 将留言上传到云数据库
     const db = wx.cloud.database();
-    db.collection('messages')
+    db.collection('comment')
       .add({
-        data: {
-          content: content,
-          author: author,
-          timestamp: timestamp,
-          buildingId: buildingId, // 关联建筑物 ID
-          buildingName: buildingName, // 保存建筑物名称
-        }
+        data: message
       })
       .then(res => {
         wx.showToast({

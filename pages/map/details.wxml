@@ -1,15 +1,15 @@
 <view>
   <!-- 建筑物信息展示 -->
-  <view class="building" style="position: relative; left: 0rpx; top: -580rpx">
+  <view class="building">
     <view class="buildingName">{{building.name}}</view>
     <navigator class="nav_map" url='polyline?latitude={{building.latitude}}&longitude={{building.longitude}}'>
-      <image src="/img/location.svg"> </image>
+      <image src="/img/location.svg" style="width: 89rpx; height: 170rpx; display: inline-block; box-sizing: border-box; position: relative; left: 662rpx; top: 8rpx"> </image>
     </navigator>
   </view>
 
   <!-- 建筑描述 -->
   <view class="descript">
-    <view class='description' style="position: relative; left: 0rpx; top: -589rpx">
+    <view class='description'>
       <rich-text nodes="{{ building.description }}"></rich-text>
     </view>
   </view>
@@ -19,17 +19,16 @@
     <!-- 留言列表 -->
     <view class="message-list">
       <view wx:for="{{messages}}" wx:key="index" class="message-item">
-        <!-- 显示建筑物名称和留言内容 -->
-        <view class="message-header">{{item.buildingName}} - {{item.author}}:</view>
+        <!-- 显示留言内容 -->
+        <view class="message-header">{{item.author}}：</view>
         <view class="message-content">{{item.content}}</view>
-        <view class="message-time">{{item.timestamp}}</view>
       </view>
     </view>
 
     <!-- 留言输入框和发送按钮 -->
     <view class="input-container">
-      <input class="message-input" bindinput="onInput" placeholder="输入留言" />
-      <button bindtap="sendMessage" class="send-button">发送</button>
+      <input style="height: 120rpx; display: block; box-sizing: border-box" class="message-input" bindinput="onInput" placeholder="输入留言" />
+      <button bindtap="sendMessage" class="send-button" style="height: 120rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">发送</button>
     </view>
   </view>
 </view>
