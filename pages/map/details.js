@@ -90,6 +90,7 @@ Page({
       author: author,
       content: content,
       liked: 0,
+      userLikes: null,
       posid: buildingId, // 关联建筑物 ID
       rootcommentid: "0", // 根留言 ID（如果是直接留言，设置为 0）
       usrid: user._id || "\"f5835fa6674183f3003d5afb4047f615\"", // 用户 ID（假设从用户信息中获取，未登录时使用默认值）
@@ -117,5 +118,77 @@ Page({
           icon: 'none',
         });
       });
+  },
+  // 处理点赞和取消点赞功能
+  likeMessage: function (e) {
+    const user = wx.getStorageSync('user');
+    const messageId = e.currentTarget.dataset.id;
+    const db = wx.cloud.database();
+    const messages = this.data.messages;
+
+    // 查找留言
+    const message = messages.find(item => item._id === messageId);
+    if (message) {
+      // 获取当前用户的点赞状态
+      const userLikes = message.userLikes || [];
+      const isUserLiked = userLikes.includes(user._id); // 检查当前用户是否已经点赞
+
+      if (isUserLiked) {
+        // 用户已经点赞，取消点赞
+        const newLiked = message.liked - 1; // 点赞数减少
+        const newUserLikes = userLikes.filter(userId => userId !== user._id); // 从已点赞用户中移除当前用户
+
+        // 更新数据库：取消点赞
+        db.collection('comment').doc(messageId).update({
+          data: {
+            liked: newLiked,
+            userLikes: newUserLikes,  // 移除当前用户ID
+          }
+        })
+        .then(() => {
+          wx.showToast({
+            title: '取消点赞成功',
+            icon: 'success'
+          });
+          // 更新本地点赞数
+          message.liked = newLiked;
+          message.userLikes = newUserLikes;
+          this.setData({
+            messages: [...messages] // 更新数据
+          });
+        })
+        .catch(err => {
+          console.error('取消点赞失败:', err);
+        });
+
+      } else {
+        // 用户没有点赞，进行点赞
+        const newLiked = message.liked + 1; // 点赞数增加
+        userLikes.push(user._id); // 将当前用户的ID添加到已点赞用户列表
+
+        // 更新数据库：进行点赞
+        db.collection('comment').doc(messageId).update({
+          data: {
+            liked: newLiked,
+            userLikes: userLikes,  // 添加当前用户ID
+          }
+        })
+        .then(() => {
+          wx.showToast({
+            title: '点赞成功',
+            icon: 'success'
+          });
+          // 更新本地点赞数
+          message.liked = newLiked;
+          message.userLikes = userLikes;
+          this.setData({
+            messages: [...messages] // 更新数据
+          });
+        })
+        .catch(err => {
+          console.error('点赞失败:', err);
+        });
+      }
+    }
   }
 });

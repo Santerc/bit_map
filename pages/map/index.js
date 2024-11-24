@@ -160,12 +160,28 @@ Page({
     // console.log(e.type)
   },
   markertap(e) {
-    // 选中 其对应的框
-    this.setData({
-      isSelectedBuild: e.markerId
-    })
-    // console.log("e.markerId", e.markerId)
+    // 获取点击的标记 ID
+    const buildingId = e.markerId;
+  
+    // 获取该建筑物的详细信息
+    const selectedBuilding = this.data.buildlData.flatMap(item => item.buildings)
+      .find(building => building._id === buildingId);
+  
+    if (selectedBuilding) {
+      // 使用 wx.navigateTo 跳转到详情页，并传递建筑物 ID
+      wx.navigateTo({
+        url: `/pages/map/details?bid=${selectedBuilding._id}`,
+      });
+    }
+    // 如果没有找到对应的建筑物，输出提示信息
+    else {
+      wx.showToast({
+        title: '未找到该建筑物信息',
+        icon: 'none',
+      });
+    }
   },
+
   navigateSearch() {
     wx.navigateTo({
       url: 'search'

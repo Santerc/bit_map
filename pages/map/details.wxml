@@ -7,21 +7,25 @@
     </navigator>
   </view>
 
-  <!-- 建筑描述 -->
-  <view class="descript">
-    <view class='description'>
-      <rich-text nodes="{{ building.description }}"></rich-text>
-    </view>
-  </view>
-
   <!-- 留言部分 -->
   <view class="message-section">
     <!-- 留言列表 -->
     <view class="message-list">
       <view wx:for="{{messages}}" wx:key="index" class="message-item">
-        <!-- 显示留言内容 -->
-        <view class="message-header">{{item.author}}：</view>
+        <view class="message-header">
+          <text class="author-name">{{item.author}}</text>：
+        </view>
         <view class="message-content">{{item.content}}</view>
+
+         <!-- 点赞区 -->
+         <view class="like-section">
+          <view class="like-button" bindtap="likeMessage" data-id="{{item._id}}">
+            <image src="/img/noliked.png" class="like-icon" style="width: 24rpx; height: 24rpx;" />
+            
+            <text color="{{item.userLikes.includes(userId) ? '#66CCFF' : '#8f8f8f'}}">liked: </text>
+            <text>{{item.liked}}</text>
+          </view>
+        </view>
       </view>
     </view>
 

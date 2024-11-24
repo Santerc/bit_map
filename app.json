@@ -8,7 +8,8 @@
     "pages/web-views/web-views",
     "pages/usr/login",
     "pages/usr/mydata",
-    "pages/usr/register"
+    "pages/usr/register",
+    "pages/introduce/team"
   ],
   "permission": {
     "scope.userLocation": {

@@ -1,48 +1,85 @@
-/* 留言部分 */
-.message-section {
+/*标题*/
+.buildingName {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(90, 92, 233);
+  text-align: center;
   margin-top: 20px;
+  text-shadow: 2px 2px 5px rgba(81, 175, 238, 0.7); /* Shadow effect for better readability */
 }
 
+/* 外部容器布局 */
+.message-section {
+  padding: 20rpx;
+}
+
+/* 留言列表 */
 .message-list {
-  margin-bottom: 20px;
+  margin-bottom: 20rpx;
 }
 
+/* 每条留言 */
 .message-item {
-  margin-bottom: 10px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15rpx;
+  padding: 10rpx;
   border-bottom: 1px solid #ccc;
 }
 
+/* 留言内容 */
+.message-content {
+  margin-top: 5rpx;
+  font-size: 30rpx;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* 作者名 */
 .message-header {
   font-weight: bold;
+  font-size: 32rpx;
+  color: #007aff;
 }
 
-.message-content {
-  margin-top: 5px;
+/* 点赞部分 */
+.like-section {
+  display: flex;
+  align-items: center;
+  margin-top: 10rpx;
 }
 
-.message-time {
-  font-size: 12px;
-  color: #999;
+.like-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
+.like-icon {
+  margin-right: 8rpx;
+}
+
+/* 输入框部分 */
 .input-container {
   display: flex;
+  margin-top: 20rpx;
   justify-content: space-between;
 }
 
 .message-input {
   width: 80%;
-  padding: 10px;
+  padding: 10rpx;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 5rpx;
+  font-size: 32rpx;
 }
 
 .send-button {
   width: 15%;
-  padding: 10px;
-  background-color: #1c74e2;
+  background-color: #007aff;
   color: white;
-  border-radius: 5px;
   border: none;
+  border-radius: 5rpx;
+  font-size: 30rpx;
+  cursor: pointer;
 }

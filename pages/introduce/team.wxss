@@ -1,0 +1,70 @@
+/* 页面总体布局 */
+.container {
+  padding: 20px;
+}
+
+/* 团队信息 */
+.team-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.team-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.team-description {
+  font-size: 24px;
+  color: #555;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* 团队成员 */
+.members {
+  margin-top: 20px;
+}
+
+.members-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.member-item {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.member-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.member-position {
+  font-size: 24px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.member-bio {
+  font-size: 20px;
+  color: #666;
+  margin-top: 5px;
+}
