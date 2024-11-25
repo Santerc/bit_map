@@ -9,7 +9,8 @@
     "pages/usr/login",
     "pages/usr/mydata",
     "pages/usr/register",
-    "pages/introduce/team"
+    "pages/introduce/team",
+    "pages/map/add"
   ],
   "permission": {
     "scope.userLocation": {

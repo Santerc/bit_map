@@ -44,8 +44,8 @@
   </map>
 
   <!-- 悬浮返回按钮 -->
-  <cover-view class="floating-button" bindtap="RReturn" style="position: absolute; bottom: 20rpx; right: 20rpx; width: 80rpx; height: 80rpx; z-index: 20; background: linear-gradient(135deg, #00aaff, #6e7bff); border-radius: 50%; text-align: center; line-height: 80rpx; color: white; font-size: 24rpx; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);">
-    <text>返回</text>
+  <cover-view class="floating-button" bindtap="add" style="position: absolute; bottom: 20rpx; right: 20rpx; width: 58rpx; height: 58rpx; z-index: 20; background: linear-gradient(135deg, #00aaff, #6e7bff); border-radius: 50%; text-align: center; line-height: 80rpx; color: white; font-size: 24rpx; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); left: 645rpx; top: 945rpx; display: block; box-sizing: border-box">
+    <text style="position: relative; left: 0rpx; top: -11rpx">+</text>
   </cover-view>
 
   <!-- 可拖动底部栏 -->

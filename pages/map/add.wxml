@@ -1,0 +1,23 @@
+<view class="container">
+  <!-- 地图组件 -->
+  <map 
+    id="map" 
+    longitude="{{longitude}}" 
+    latitude="{{latitude}}" 
+    scale="16" 
+    show-compass="true" 
+    show-scale="true" 
+    bindtap="onMapTap"
+    markers="{{markers}}" style="position: relative; left: 0rpx; top: -200rpx; height: 962rpx; display: block; box-sizing: border-box; width: 639rpx">
+  </map>
+
+  <!-- 添加地点弹框 -->
+  <view wx:if="{{showAddPlaceModal}}" class="modal">
+    <view class="modal-content">
+      <input class="input" placeholder="请输入地点名称" bindinput="handlePlaceNameInput" value="{{newPlaceName}}" />
+      <input class="input" placeholder="请输入地点类型" bindinput="handlePlaceTypeInput" value="{{newPlaceType}}" />
+      <button bindtap="addPlace">确认添加</button>
+      <button bindtap="closeModal">取消</button>
+    </view>
+  </view>
+</view>

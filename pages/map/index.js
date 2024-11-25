@@ -1,6 +1,7 @@
-//获取应用实例
+// 获取应用实例
 var app = getApp();
 var amapFile = require('../../utils/amap-wx.js');
+
 Page({
   data: {
     fullscreen: false,
@@ -17,26 +18,34 @@ Page({
     startY: 0, // 触摸开始位置
     isDragging: false, // 是否正在拖动 
   },
+
   onLoad: function () {
     wx.cloud.init();
     wx.showShareMenu({
       withShareTicket: true
-    })
+    });
+    
+    // 获取设备信息
     var _this = this;
-    this.setData({
-      bottomBarBottom: '-200rpx',
-    })
     wx.getSystemInfo({
       success: function (res) {
-        //获取当前设备宽度与高度，用于定位控键的位置
+        // 获取当前设备宽度与高度，用于定位控件的位置
         _this.setData({
           windowHeight: res.windowHeight,
           windowWidth: res.windowWidth,
-        })
-        console.log(res.windowWidth)
+        });
+        console.log(res.windowWidth);
       }
-    })
-    //载入更新后的数据
+    });
+
+    // 初始加载数据
+    this.fetchBuildingTypes();
+    this.fetchPositions();
+  },
+
+  // 页面每次显示时都会刷新上栏
+  onShow: function () {
+    // 调用刷新顶部栏相关的数据
     this.fetchBuildingTypes();
     this.fetchPositions();
   },
@@ -84,7 +93,6 @@ Page({
         id: item._id, // 唯一标识符
         latitude: item.latitude,
         longitude: item.longitude,
-
       };
     });
 
@@ -94,7 +102,7 @@ Page({
   // 从数据库获取建筑数据
   fetchBuildingTypes: function () {
     const db = wx.cloud.database();
-    db.collection('location') // 假设建筑物数据存储在 position 集合中
+    db.collection('location')
       .get()
       .then(res => {
         const buildings = res.data;
@@ -162,7 +170,7 @@ Page({
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
+      console.log(res.target);
     }
     return {
       title: app.globalData.introduce.name + ' - 校园导览',
@@ -173,12 +181,14 @@ Page({
       fail: function (res) {
         // 转发失败
       }
-    }
+    };
   },
+
   regionchange(e) {
     // 视野变化
     // console.log(e.type)
   },
+
   markertap(e) {
     // 获取点击的标记 ID
     const buildingId = e.markerId;
@@ -205,10 +215,17 @@ Page({
   navigateSearch() {
     wx.navigateTo({
       url: 'search'
-    })
+    });
   },
+
+  add() {
+    wx.navigateTo({
+      url: '/pages/map/add',
+    });
+  },
+
   location: function () {
-    var _this = this
+    var _this = this;
     wx.getLocation({
       type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
       success: function (res) {
@@ -217,21 +234,23 @@ Page({
         _this.setData({
           longitude: res.longitude,
           latitude: res.latitude
-        })
+        });
       }
-    })
+    });
   },
+
   clickButton: function (e) {
     //console.log(this.data.fullscreen)
     //打印所有关于点击对象的信息
     this.setData({
       fullscreen: !this.data.fullscreen
-    })
+    });
   },
+
   mydata() {
     wx.navigateTo({
       url: '/pages/usr/mydata',
-    })
+    });
   },
 
   toggleAddressBar() {
@@ -239,4 +258,4 @@ Page({
       showAddressBar: !this.data.showAddressBar,
     });
   },
-})
+});
