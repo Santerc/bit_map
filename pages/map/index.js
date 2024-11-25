@@ -1,3 +1,5 @@
+const PAGE_SIZE = 20;  // 每次请求的条数
+
 // 获取应用实例
 var app = getApp();
 var amapFile = require('../../utils/amap-wx.js');
@@ -7,7 +9,7 @@ Page({
     fullscreen: false,
     latitude: 39.735678,
     longitude: 116.171271,
-    buildlData: app.globalData.map,
+    buildlData: [],  // 初始为空数组
     windowHeight: "",
     windowWidth: "",
     isSelectedBuild: 0,
@@ -16,7 +18,10 @@ Page({
     islocation: true,
     bottomBarBottom: '-200rpx',
     startY: 0, // 触摸开始位置
-    isDragging: false, // 是否正在拖动 
+    isDragging: false, // 是否正在拖动
+    page: 1,  // 初始化页码
+    hasMore: true,  // 初始状态假设有更多数据
+    isLoading: false,  // 是否正在加载
   },
 
   onLoad: function () {
@@ -24,18 +29,23 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     });
-    
+
     // 获取设备信息
     var _this = this;
     wx.getSystemInfo({
       success: function (res) {
-        // 获取当前设备宽度与高度，用于定位控件的位置
         _this.setData({
           windowHeight: res.windowHeight,
           windowWidth: res.windowWidth,
         });
-        console.log(res.windowWidth);
       }
+    });
+
+    // 初始化页码和是否有更多数据
+    this.setData({
+      page: 1,
+      hasMore: true,
+      buildlData: [],
     });
 
     // 初始加载数据
@@ -43,49 +53,82 @@ Page({
     this.fetchPositions();
   },
 
-  // 页面每次显示时都会刷新上栏
   onShow: function () {
-    // 调用刷新顶部栏相关的数据
     this.fetchBuildingTypes();
     this.fetchPositions();
   },
 
-  // 显示底部栏
   showBottomBar() {
     this.setData({
       bottomBarBottom: '0rpx', // 拉起底部栏
     });
   },
 
-  // 收起底部栏
   closeBottomBar() {
     this.setData({
       bottomBarBottom: '-200rpx', // 隐藏底部栏
     });
   },
 
-  // 从云数据库获取地点数据
+  // 获取地点数据（分页处理）
   fetchPositions: function () {
-    const db = wx.cloud.database();
-    db.collection('location')
-      .get()
-      .then(res => {
-        console.log('从云端获取的地点数据:', res.data);
+  // 防止在正在加载或没有更多数据时重复请求
+  if (this.data.isLoading || !this.data.hasMore) {
+    console.log("No more data or loading in progress.");
+    return;
+  }
 
-        // 处理数据：将数据按建筑类型分组或者直接用来显示
-        const buildlData = this.processBuildingData(res.data);
-        this.setData({
-          type: buildlData // 更新数据
-        });
-      })
-      .catch(err => {
-        console.error('获取地点数据失败:', err);
+  // 设置为加载中状态
+  this.setData({
+    isLoading: true,
+  });
+
+  var db = wx.cloud.database();
+  var { page } = this.data;
+  
+  // 查询数据
+  db.collection('location')
+    .skip((page - 1) * PAGE_SIZE)  // 根据页码跳过数据
+    .limit(PAGE_SIZE)  // 每次查询 20 条数据
+    .get()
+    .then(res => {
+      console.log('从云端获取的地点数据:', res.data);
+
+      // 判断是否有更多数据
+      var hasMore = res.data.length === PAGE_SIZE;
+      console.log('更多？:', res.data.length);
+
+      // 处理数据：按建筑类型分组或直接显示
+      var newBuildlData = this.processBuildingData(res.data);
+
+      // 去重：确保新加载的数据不与现有数据重复
+      var allData = this.data.buildlData.concat(newBuildlData);
+      var uniqueData = this.removeDuplicates(allData);
+
+      // 更新数据
+      this.setData({
+        buildlData: uniqueData,  // 合并去重后的新数据
+        page: hasMore ? this.data.page + 1 : this.data.page,  // 增加页码
+        hasMore: hasMore,  // 更新是否有更多数据
+        isLoading: false,  // 设置为加载完成
       });
-  },
+
+      // 如果没有更多数据
+      if (!hasMore) {
+        console.log("No more data to load.");
+      }
+    })
+    .catch(err => {
+      console.error('获取地点数据失败:', err);
+      this.setData({
+        isLoading: false,  // 设置加载完成
+      });
+    });
+},
+
 
   // 处理地点数据（例如按建筑类型分组）
   processBuildingData: function (data) {
-    // 假设按 'type' 字段分组
     const buildlData = data.map(item => {
       return {
         name: item.name, // 建筑名称
@@ -99,15 +142,28 @@ Page({
     return buildlData;
   },
 
-  // 从数据库获取建筑数据
+  // 去重：通过 _id 确保每个建筑物只出现一次
+  removeDuplicates: function (data) {
+    const uniqueData = [];
+    const seenIds = new Set();
+
+    data.forEach(item => {
+      if (!seenIds.has(item.id)) {
+        seenIds.add(item.id);
+        uniqueData.push(item);
+      }
+    });
+
+    return uniqueData;
+  },
+
+  // 获取建筑类型
   fetchBuildingTypes: function () {
     const db = wx.cloud.database();
     db.collection('location')
       .get()
       .then(res => {
         const buildings = res.data;
-
-        // 将建筑物按类型分组
         const buildlData = this.groupByType(buildings);
 
         // 更新数据
@@ -140,25 +196,23 @@ Page({
     return groupedData;
   },
 
-  // 点击建筑类型标签时触发的函数
   changePage: function (event) {
-    const selectedIndex = event.currentTarget.id; // 获取被点击的建筑类型索引
-    const selectedTypeData = this.data.buildlData[selectedIndex]; // 获取该类型的建筑物数据
+    const selectedIndex = event.currentTarget.id;
+    const selectedTypeData = this.data.buildlData[selectedIndex];
 
     // 更新当前选中的建筑类型
     this.setData({
       isSelectedBuildType: selectedIndex
     });
 
-    // 获取该建筑类型下所有建筑的坐标并标注
     const markers = selectedTypeData.buildings.map(building => ({
       id: building._id,
       latitude: parseFloat(building.latitude),
       longitude: parseFloat(building.longitude),
-      title: building.name, // 使用建筑物名称作为标注标题
-      iconPath: '/img/marker.png', // 自定义标注图标路径
-      width: 30, // 图标宽度
-      height: 30 // 图标高度
+      title: building.name,
+      iconPath: '/img/marker.png',
+      width: 30,
+      height: 30
     }));
 
     // 更新地图标注数据
@@ -167,44 +221,32 @@ Page({
     });
   },
 
+  // 监听页面触底事件，加载更多数据
+  onReachBottom: function () {
+    this.fetchPositions();
+  },
+
   onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target);
-    }
     return {
       title: app.globalData.introduce.name + ' - 校园导览',
       path: '/pages/map/index',
-      success: function (res) {
-        // 转发成功
-      },
-      fail: function (res) {
-        // 转发失败
-      }
     };
   },
 
   regionchange(e) {
-    // 视野变化
-    // console.log(e.type)
+    console.log(e.type);
   },
 
   markertap(e) {
-    // 获取点击的标记 ID
     const buildingId = e.markerId;
-  
-    // 获取该建筑物的详细信息
     const selectedBuilding = this.data.buildlData.flatMap(item => item.buildings)
       .find(building => building._id === buildingId);
-  
+
     if (selectedBuilding) {
-      // 使用 wx.navigateTo 跳转到详情页，并传递建筑物 ID
       wx.navigateTo({
         url: `/pages/map/details?bid=${selectedBuilding._id}`,
       });
-    }
-    // 如果没有找到对应的建筑物，输出提示信息
-    else {
+    } else {
       wx.showToast({
         title: '未找到该建筑物信息',
         icon: 'none',
@@ -227,7 +269,7 @@ Page({
   location: function () {
     var _this = this;
     wx.getLocation({
-      type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
+      type: 'gcj02',
       success: function (res) {
         app.globalData.latitude = res.latitude;
         app.globalData.longitude = res.longitude;
@@ -240,8 +282,6 @@ Page({
   },
 
   clickButton: function (e) {
-    //console.log(this.data.fullscreen)
-    //打印所有关于点击对象的信息
     this.setData({
       fullscreen: !this.data.fullscreen
     });
