@@ -1,132 +1,105 @@
-/* pages/usr/mydata.wxss */
-/* 主容器 */
+/* pages/me/me.wxss */
+
+/* 页面背景 */
 .me, .login-ok {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40rpx;
-  background-color: #f7f7f7;
-  border-radius: 20rpx;
-  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.05); /* 微妙的阴影 */
-  width: 90%;
-  margin: 60rpx auto;
+  padding: 20px;
+  background-color: #f8f8f8;  /* 浅灰背景，简洁且清爽 */
+  height: 100%;
 }
 
-/* 未登录按钮 */
-.btn-login, .btn-register {
+/* 登录和注册按钮样式 */
+.login-btn, .register-btn {
   width: 100%;
-  height: 88rpx;
-  font-size: 30rpx;
-  margin-top: 20rpx;
-  border-radius: 12rpx;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 30px;
+  font-size: 16px;
+  background-color: #1e90ff;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn-login {
-  color: #fff;
-  background-color: #1aad19; /* 微信绿色 */
-  box-shadow: 0 4rpx 8rpx rgba(26, 173, 25, 0.3); /* 轻微阴影 */
+.register-btn {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
 }
 
-.btn-register {
-  color: #1aad19;
-  background-color: #fff;
-  border: 1px solid #1aad19;
-  margin-top: 15rpx;
-  box-shadow: 0 4rpx 8rpx rgba(26, 173, 25, 0.2);
-}
-
-/* 登录成功界面 */
-/* 统一容器样式 */
+/* 登录成功页面样式 */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20rpx;
-  background-color: #f6f8fa;  /* 浅灰色背景，更贴合飞书风格 */
-  min-height: 100vh;
 }
 
-/* 成功提示 */
 .success-text {
-  font-size: 32rpx;
+  font-size: 18px;
+  color: #333;
   font-weight: 500;
-  color: #0061F2;  /* 飞书蓝色 */
-  margin-bottom: 30rpx;
+  margin-bottom: 20px;
 }
 
-/* 用户信息卡片 */
+/* 用户信息展示样式 */
 .user-info {
-  margin-top: 40rpx;
-  background-color: #ffffff;
-  padding: 20rpx;
-  border-radius: 8rpx;  /* 圆角效果 */
-  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);  /* 柔和阴影 */
-  width: 85%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40rpx;
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: #333;
 }
 
-/* 账号标签 */
 .user-label {
-  font-size: 28rpx;
-  color: #A3A3A3;  /* 浅灰色字体 */
-  font-weight: 400;
+  font-weight: bold;
 }
 
-/* 用户名 */
-.user-name {
-  font-size: 28rpx;
-  color: #333;  /* 深色字体 */
-  font-weight: 500;
+/* 头像展示 */
+.avatar-container {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* 操作按钮 */
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd; /* 头像边框 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.upload-avatar-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  color: #333;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.upload-avatar-btn:hover {
+  background-color: #e0e0e0;  /* 鼠标悬停效果 */
+}
+
+/* 操作按钮区 */
 .button-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  margin-top: 40px;
 }
 
-/* 按钮样式 */
-.mainpage-btn,
-.logout-btn {
-  width: 80%;
-  padding: 15rpx;
-  margin: 12rpx 0;
-  border-radius: 6rpx;
-  font-size: 30rpx;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;  /* 添加平滑过渡 */
+.mainpage-btn, .logout-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 25px;
+  background-color: #1e90ff;
+  color: white;
+  flex: 1;
+  margin: 0 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.mainpage-btn {
-  background-color: #0061F2;  /* 飞书蓝色 */
-  color: #ffffff;
-  border: none;
+.mainpage-btn:hover, .logout-btn:hover {
+  background-color: #0078d4;
 }
-
-.logout-btn {
-  background-color: #616060;  /* 红色按钮，表示退出 */
-  color: #ffffff;
-  border: none;
-}
-
-.mainpage-btn:hover,
-.logout-btn:hover {
-  opacity: 0.8;  /* 悬停时透明度变化，增加交互感 */
-}
-
-/*
-
-
-/* 按钮点击效果 */
-.btn-login:active, .btn-register:active, .btn-logout:active {
-  opacity: 0.8; /* 按钮点击时透明度变化 */
-}
-
-
