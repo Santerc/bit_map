@@ -12,7 +12,10 @@ Page({
     isSelectedBuild: 0,
     isSelectedBuildType: 0,
     imgCDN: app.imgCDN,
-    islocation: true
+    islocation: true,
+    bottomBarBottom: '-200rpx',
+    startY: 0, // 触摸开始位置
+    isDragging: false, // 是否正在拖动 
   },
   onLoad: function () {
     wx.cloud.init();
@@ -20,6 +23,9 @@ Page({
       withShareTicket: true
     })
     var _this = this;
+    this.setData({
+      bottomBarBottom: '-200rpx',
+    })
     wx.getSystemInfo({
       success: function (res) {
         //获取当前设备宽度与高度，用于定位控键的位置
@@ -33,6 +39,20 @@ Page({
     //载入更新后的数据
     this.fetchBuildingTypes();
     this.fetchPositions();
+  },
+
+  // 显示底部栏
+  showBottomBar() {
+    this.setData({
+      bottomBarBottom: '0rpx', // 拉起底部栏
+    });
+  },
+
+  // 收起底部栏
+  closeBottomBar() {
+    this.setData({
+      bottomBarBottom: '-200rpx', // 隐藏底部栏
+    });
   },
 
   // 从云数据库获取地点数据

@@ -1,9 +1,9 @@
-<view>
+<view class="chat-container">
   <!-- 建筑物信息展示 -->
   <view class="building">
     <view class="buildingName">{{building.name}}</view>
     <navigator class="nav_map" url='polyline?latitude={{building.latitude}}&longitude={{building.longitude}}'>
-      <image src="/img/location.svg" style="width: 89rpx; height: 170rpx; display: inline-block; box-sizing: border-box; position: relative; left: 662rpx; top: 8rpx"> </image>
+      <image src="/img/location.svg" class="location-icon" />
     </navigator>
   </view>
 
@@ -12,17 +12,20 @@
     <!-- 留言列表 -->
     <view class="message-list">
       <view wx:for="{{messages}}" wx:key="index" class="message-item">
+        <!-- 留言头像和内容 -->
         <view class="message-header">
-          <text class="author-name">{{item.author}}</text>：
+          <image class="message-avatar" src="{{item.picUrl || '/img/default-avatar.png'}}" />
+          <view class="message-info">
+            <text class="author-name">{{item.author}}</text>
+            <view class="message-content">{{item.content}}</view>
+          </view>
         </view>
-        <view class="message-content">{{item.content}}</view>
 
-         <!-- 点赞区 -->
-         <view class="like-section">
+        <!-- 点赞区 -->
+        <view class="like-section">
           <view class="like-button" bindtap="likeMessage" data-id="{{item._id}}">
-            <image src="/img/noliked.png" class="like-icon" style="width: 24rpx; height: 24rpx;" />
-            
-            <text color="{{item.userLikes.includes(userId) ? '#66CCFF' : '#8f8f8f'}}">liked: </text>
+            <image src="/img/noliked.png" class="like-icon" />
+            <text class="like-text" style="color: {{item.userLikes.includes(userId) ? '#66CCFF' : '#8f8f8f'}}">赞</text>
             <text>{{item.liked}}</text>
           </view>
         </view>
@@ -31,8 +34,8 @@
 
     <!-- 留言输入框和发送按钮 -->
     <view class="input-container">
-      <input style="height: 120rpx; display: block; box-sizing: border-box" class="message-input" bindinput="onInput" placeholder="输入留言" />
-      <button bindtap="sendMessage" class="send-button" style="height: 120rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">发送</button>
+      <input style="height: 72rpx; display: block; box-sizing: border-box" class="message-input" bindinput="onInput" placeholder="输入留言" />
+      <button bindtap="sendMessage" class="send-button">发送</button>
     </view>
   </view>
 </view>

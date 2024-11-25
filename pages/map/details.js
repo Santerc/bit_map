@@ -36,21 +36,47 @@ Page({
   },
 
   // 获取指定建筑物的留言
-  fetchMessages: function (buildingId) {
-    const db = wx.cloud.database();
-    db.collection('comment')
-      .where({ posid: buildingId })  // 根据建筑物的 posid 查询留言
-      .orderBy('timestamp', 'desc')  // 按时间倒序排列
-      .get()
-      .then(res => {
-        this.setData({
-          messages: res.data  // 将查询结果中的留言数据赋值给 messages
-        });
-      })
-      .catch(err => {
-        console.error('获取留言失败:', err);
+fetchMessages: function (buildingId) {
+  const db = wx.cloud.database();
+  const commentCollection = db.collection('comment');
+  const userCollection = db.collection('user');
+
+  commentCollection
+    .where({ posid: buildingId })  // 根据建筑物的 posid 查询留言
+    .orderBy('timestamp', 'desc')  // 按时间倒序排列
+    .get()
+    .then(res => {
+      const messages = res.data;
+
+      // 为每条留言添加用户头像
+      const messageWithAvatars = messages.map(item => {
+        const userId = item.usrid;
+        return userCollection
+          .doc(userId) // 根据留言的 userId 获取用户信息
+          .get()
+          .then(userRes => {
+            if (userRes.data) {
+              item.picUrl = userRes.data.picUrl || '/img/default-avatar.png'; // 使用用户头像，若没有则使用默认头像
+            }
+            return item;
+          })
+          .catch(() => {
+            item.picUrl = '/img/default-avatar.png'; // 如果获取失败，使用默认头像
+            return item;
+          });
       });
-  },
+
+      // 等待所有查询完成后设置数据
+      Promise.all(messageWithAvatars).then(messagesWithAvatars => {
+        this.setData({
+          messages: messagesWithAvatars
+        });
+      });
+    })
+    .catch(err => {
+      console.error('获取留言失败:', err);
+    });
+},
 
   // 输入框内容绑定
   onInput: function (e) {

@@ -1,85 +1,183 @@
-/*标题*/
-.buildingName {
-  font-size: 18px;
-  font-weight: bold;
-  color: rgb(90, 92, 233);
-  text-align: center;
-  margin-top: 20px;
-  text-shadow: 2px 2px 5px rgba(81, 175, 238, 0.7); /* Shadow effect for better readability */
+/* 聊天容器 */
+.chat-container {
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif; /* 简洁现代的字体 */
 }
 
-/* 外部容器布局 */
+/* 建筑物信息 */
+.building {
+  margin-bottom: 20rpx;
+}
+
+.buildingName {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12rpx;
+  text-align: center; /* 居中对齐 */
+}
+
+.nav_map {
+  display: inline-block;
+  background-color: transparent;
+}
+
+.location-icon {
+  width: 50rpx;
+  height: 50rpx;
+  transition: transform 0.3s ease;
+}
+
+.location-icon:hover {
+  transform: scale(1.1);
+}
+
+/* 留言部分 */
 .message-section {
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.1);
   padding: 20rpx;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
 }
 
 /* 留言列表 */
 .message-list {
+  max-height: 500rpx;
+  overflow-y: auto;
   margin-bottom: 20rpx;
+  padding-right: 10rpx;
 }
 
-/* 每条留言 */
 .message-item {
+  background: #f9f9f9;
+  padding: 15rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 3rpx 12rpx rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  margin-bottom: 15rpx;
-  padding: 10rpx;
-  border-bottom: 1px solid #ccc;
+  gap: 12rpx;
+  transition: transform 0.3s ease;
 }
 
-/* 留言内容 */
-.message-content {
-  margin-top: 5rpx;
-  font-size: 30rpx;
-  line-height: 1.5;
-  color: #333;
+.message-item:hover {
+  transform: scale(1.02); /* 鼠标悬浮时缩放 */
 }
 
-/* 作者名 */
 .message-header {
-  font-weight: bold;
-  font-size: 32rpx;
-  color: #007aff;
-}
-
-/* 点赞部分 */
-.like-section {
   display: flex;
   align-items: center;
-  margin-top: 10rpx;
+}
+
+.message-avatar {
+  width: 50rpx; /* 增大头像 */
+  height: 50rpx;
+  border-radius: 50%;
+  margin-right: 15rpx;
+  object-fit: cover;
+}
+
+.message-info {
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.author-name {
+  font-weight: 800;
+  color: #333;
+  font-size: 36rpx;
+}
+
+.message-content {
+  margin-top: 8rpx;
+  color: #333;
+  font-size: 16rpx;
+  line-height: 24rpx; /* 增加行距 */
+}
+
+/* 点赞区 */
+.like-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 8rpx;
 }
 
 .like-button {
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.like-button:hover {
+  transform: scale(1.05);
 }
 
 .like-icon {
+  width: 26rpx;
+  height: 26rpx;
   margin-right: 8rpx;
+  transition: transform 0.2s ease;
 }
 
-/* 输入框部分 */
+.like-button:hover .like-icon {
+  transform: scale(1.2); /* 鼠标悬浮时放大点赞图标 */
+}
+
+.like-text {
+  font-size: 16rpx;
+  color: #666;
+}
+
+/* 输入框和发送按钮 */
 .input-container {
   display: flex;
-  margin-top: 20rpx;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 42rpx;
 }
 
 .message-input {
-  width: 80%;
-  padding: 10rpx;
-  border: 1px solid #ccc;
-  border-radius: 5rpx;
-  font-size: 32rpx;
+  flex: 1;
+  padding: 14rpx;
+  font-size: 36rpx;
+  border-radius: 14rpx;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  margin-right: 12rpx;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.message-input:focus {
+  border-color: #66CCFF; /* 聚焦时输入框边框变色 */
 }
 
 .send-button {
-  width: 15%;
-  background-color: #007aff;
-  color: white;
+  background: #66CCFF;
+  color: #fff;
+  font-size: 18rpx;
+  border-radius: 14rpx;
+  padding: 14rpx 24rpx;
   border: none;
-  border-radius: 5rpx;
-  font-size: 30rpx;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background: #3399FF;
+}
+
+.send-button:active {
+  background: #2978b7;
 }

@@ -1,107 +1,109 @@
-pages/map/map.wxss
-
-.building-item {
-  height: 50px;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 10px;
-}
-
+/* 顶部切换栏样式 */
 .top-switch {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
+  margin: 0 auto;
 }
 
 .top-switch-btn {
-  padding: 10rpx 20rpx;
-  margin: 5rpx;
-  font-size: 28rpx;
-  text-align: center;
-  color: #333;
-  border-radius: 30rpx;
-  transition: all 0.3s;
+  padding: 12rpx 24rpx;
+  margin-right: 20rpx;
+  border-radius: 30px;
+  font-size: 18rpx;
+  color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .top-switch-btn.active {
-  background: linear-gradient(90deg, #5079ff, #1900ff);
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  box-shadow: 0 4rpx 8rpx rgba(0, 174, 255, 0.3);
+  background-color: #1e90ff;
+  color: white;
+  transform: translateY(-4rpx); /* 按钮点击时浮动效果 */
 }
 
-.top-switch-btn:hover {
-  background: #66CCFF;
-}
-
-
-.active {
-  border-bottom: solid white;
-  height: 50rpx;
-  display: inline-block;
-}
-
-button {
-  font-size: 26rpx;
-  height: 6vh;
-}
-
-.img-view {
-  height: 100%;
-  display: flex;
-}
-
-.img {
-  width: 85%;
-  height: 100%;
-  display: flex;
-}
-
-.img image {
-  width: 60px;
-  height: 90%;
-  margin: auto 7rpx;
-}
-
-.item {
+/* 控件悬浮效果 */
+.controls {
   display: flex;
   flex-direction: column;
-  margin: auto 0;
+  justify-content: center;
+  align-items: center;
+  padding: 10rpx;
 }
 
-.itemName {
-  margin: 0 20rpx;
-  font-size: 32rpx;
+.usr, .img {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 高光效果 */
+  border-radius: 50%;
+  margin-bottom: 30rpx;
 }
 
-.itemFloor {
-  margin: 0 20rpx;
-  font-size: 28rpx;
-  color: #555;
+.usr:hover, .img:hover {
+  transform: scale(1.1); /* 鼠标悬停时放大效果 */
 }
 
-.text {
-  margin: auto 15px;
-  width: 13%;
+/* 返回按钮 */
+.floating-button {
+  background: linear-gradient(135deg, #00aaff, #6e7bff); /* 渐变背景 */
+  color: white;
+  font-size: 24rpx;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* 阴影效果 */
+  text-align: center;
+  line-height: 80rpx;
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.text image {
-  width: 70rpx;
-  height: 70rpx;
+.floating-button:hover {
+  background: linear-gradient(135deg, #1e90ff, #6e7bff); /* 渐变色变化 */
+  transform: scale(1.05); /* 鼠标悬停时放大 */
 }
 
-.controls {
+/* 地图区域 */
+map {
   position: relative;
-  top: 65%;
-  left: 85%;
-  /* display: flex; */
 }
 
-.controls .img {
-  margin-top: 5px;
-  width: 80rpx;
-  height: 80rpx;
+/* 可拖动底部栏样式 */
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 200rpx;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20rpx 20rpx 0 0;
+  padding: 10rpx;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  transition: bottom 0.3s ease-in-out;
 }
 
-.full {
-  top: 82%;
+.bottom-bar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.location-info {
+  font-size: 18rpx;
+  color: #e0e0e0;
+}
+
+.close-bar-btn {
+  background: #1e90ff;
+  color: white;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 14rpx;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.close-bar-btn:hover {
+  background: #00bfff;
 }
