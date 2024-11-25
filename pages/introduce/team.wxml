@@ -1,24 +1,18 @@
-<view class="container">
-  <!-- 团队信息 -->
+<view class="page">
+  <!-- 团队信息部分 -->
   <view class="team-info">
-    <view class="team-title">我们的团队</view>
-    <view class="team-description">
-      我们是一个充满激情和创新的团队，致力于打造最前沿的技术产品，改变行业格局。
-      我们的目标是通过协作与努力，共同实现更大的价值与突破。
-    </view>
+    <text class="team-name">{{teamInfo.name}}</text>
+    <text class="team-description">{{teamInfo.description}}</text>
+    <text class="team-vision">{{teamInfo.vision}}</text>
   </view>
 
-  <!-- 团队成员 -->
-  <view class="members">
-    <view class="members-title">团队成员</view>
-
-    <view wx:for="{{members}}" wx:key="id" class="member-item">
-      <image class="member-avatar" src="{{item.avatar}}" mode="aspectFill" />
-      <view class="member-info">
-        <view class="member-name">{{item.name}}</view>
-        <view class="member-position">{{item.position}}</view>
-        <view class="member-bio">{{item.bio}}</view>
+  <!-- 团队成员部分 -->
+  <view class="members-container">
+    <block wx:for="{{members}}" wx:key="id">
+      <view class="member-card" animation="fadeIn 1s ease-in-out">
+        <text class="member-name">{{item.name}}</text>
+        <text class="member-position">{{item.position}}</text>
       </view>
-    </view>
+    </block>
   </view>
 </view>

@@ -1,70 +1,86 @@
-/* 页面总体布局 */
-.container {
+/* 页面基础样式 */
+.page {
   padding: 20px;
 }
 
-/* 团队信息 */
+/* 团队信息部分样式 */
 .team-info {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
-  margin-bottom: 30px;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.team-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #333;
-}
-
-.team-description {
+.team-name {
   font-size: 24px;
-  color: #555;
-  margin-top: 10px;
-  line-height: 1.6;
+  font-weight: bold;
 }
 
-/* 团队成员 */
-.members {
+.team-description,
+.team-vision {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* 团队成员部分样式 */
+.members-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   margin-top: 20px;
 }
 
-.members-title {
-  font-size: 30px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
+.member-card {
+  background: white;
+  border-radius: 10px;
+  width: 200px;
+  padding: 15px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  animation: slideUp 1.5s ease;
 }
 
-.member-item {
-  display: flex;
-  margin-bottom: 20px;
-  align-items: center;
-}
-
-.member-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.member-info {
-  flex: 1;
+.member-card:hover {
+  transform: translateY(-10px);
 }
 
 .member-name {
-  font-size: 28px;
+  font-size: 18px;
   font-weight: bold;
-  color: #333;
 }
 
 .member-position {
-  font-size: 24px;
-  color: #888;
-  margin-top: 5px;
+  font-size: 14px;
+  color: #666;
 }
 
-.member-bio {
-  font-size: 20px;
-  color: #666;
-  margin-top: 5px;
+/* 按钮动画样式 (如果需要) */
+.button {
+  background: #0072ff;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
