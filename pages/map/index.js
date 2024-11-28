@@ -1,5 +1,9 @@
 const PAGE_SIZE = 20;  // 每次请求的条数
 
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // 获取应用实例
 var app = getApp();
 var amapFile = require('../../utils/amap-wx.js');

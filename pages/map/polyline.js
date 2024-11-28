@@ -122,12 +122,12 @@ Page({
     };
 
     // 判断步行或驾车
-    if (distance < 0.85) {
+    // if (distance < 0.85) {
       console.log("选择步行路径");
       myAmapFun.getWalkingRoute(routeData);
-    } else {
-      console.log("选择驾车路径");
-      myAmapFun.getDrivingRoute(routeData);
-    }
+    // } else {
+    //   console.log("选择驾车路径");
+    //   myAmapFun.getDrivingRoute(routeData);
+    // }
   }
 });
