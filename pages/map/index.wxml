@@ -27,7 +27,7 @@
     style="width: 100%; height: 100vh;"
   >
     <!-- 地图悬浮控件 -->
-    <cover-view class="controls" style="position: absolute; top: 50%; right: 20rpx; z-index: 20; transform: translateY(-50%);">
+    <cover-view class="controls" style="position: absolute; top: 725rpx; right: 20rpx; z-index: 20; transform: translateY(-50%); height: 518rpx; display: flex; box-sizing: border-box; left: 633rpx">
       <cover-view style="margin-bottom: 30rpx;">
         <cover-image bindtap="mydata" class="usr" src="/img/usr.png" style="height: 80rpx; width: 80rpx; border-radius: 50%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: transform 0.3s;">
         </cover-image>
@@ -38,15 +38,14 @@
       </cover-view>
       
       <cover-view bindtap="location" style="margin-bottom: 30rpx; width: 60rpx; height: 60rpx;">
-        <cover-image class="img" src="/img/location.png" style="height: 100%; width: 100%; transition: transform 0.3s;"></cover-image>
+        <cover-image class="img" src="/img/location.png" style="height: 100%; width: 100%; transition: transform 0.3s; position: relative; left: 0rpx; top: -3rpx"></cover-image>
+      </cover-view>
+      <cover-view bindtap="add" style="margin-bottom: 30rpx; width: 60rpx; height: 60rpx;">
+        <cover-image class="img" src="/img/add.png" style="height: 100%; width: 100%; transition: transform 0.3s; position: relative; left: 0rpx; top: 3rpx"></cover-image>
       </cover-view>
     </cover-view>
   </map>
 
-  <!-- 悬浮返回按钮 -->
-  <cover-view class="floating-button" bindtap="add" style="position: absolute; bottom: 20rpx; right: 20rpx; width: 58rpx; height: 58rpx; z-index: 20; background: linear-gradient(135deg, #00aaff, #6e7bff); border-radius: 50%; text-align: center; line-height: 80rpx; color: white; font-size: 24rpx; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); left: 645rpx; top: 945rpx; display: block; box-sizing: border-box">
-    <text style="position: relative; left: 0rpx; top: -11rpx">+</text>
-  </cover-view>
 
   <!-- 可拖动底部栏 -->
   <view class="bottom-bar" 

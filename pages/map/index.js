@@ -210,7 +210,7 @@ Page({
       latitude: parseFloat(building.latitude),
       longitude: parseFloat(building.longitude),
       title: building.name,
-      iconPath: '/img/marker.png',
+      iconPath: '/img/ico/景点.png',
       width: 30,
       height: 30
     }));

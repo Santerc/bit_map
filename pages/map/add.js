@@ -42,7 +42,7 @@ Page({
       id: Date.now(),  // 使用当前时间作为唯一ID
       latitude: latitude,
       longitude: longitude,
-      iconPath: '/img/marker.png',  // 自定义标记图标路径
+      iconPath: '/img/ico/景点.png',  // 自定义标记图标路径
       width: 30,  // 图标宽度
       height: 30,  // 图标高度
       title: "新地点",  // 默认标题

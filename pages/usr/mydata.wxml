@@ -1,7 +1,9 @@
 <!-- pages/me/me.wxml -->
 <view class="me" wx:if="{{!loginOK}}">
-  <button class="login-btn" type="primary" bindtap="login">登录</button>
-  <button class="register-btn" type="default" bindtap="register">注册</button>
+  <view class="auth-buttons">
+    <button class="login-btn" type="primary" bindtap="login">登录</button>
+    <button class="register-btn" type="default" bindtap="register">注册</button>
+  </view>
 </view>
 
 <!-- 登录成功 -->
@@ -11,21 +13,23 @@
     <text class="success-text">登录成功</text>
 
     <!-- 用户信息展示 -->
-    <view class="user-info">
-      <text class="user-label">账号：</text>
-      <text class="user-name">{{name}}</text>
+    <view class="user-info" style="position: relative; left: -199rpx; top: -274rpx">
+      <view class="avatar-container">
+        <image src="{{avatarUrl}}" class="avatar" mode="aspectFill" bindtap="chooseAvatar" />
+      </view>
+      <view class="user-details">
+        <text class="user-label">账号：</text>
+        <text class="user-name">{{name}}</text>
+      </view>
     </view>
 
-    <!-- 头像展示 -->
-    <view class="avatar-container">
-      <image src="{{avatarUrl}}" class="avatar" mode="aspectFill" bindtap="chooseAvatar" />
-      <button class="upload-avatar-btn" bindtap="chooseAvatar">上传头像</button>
-    </view>
+    <!-- 上传头像按钮 -->
+    <button class="upload-avatar-btn" bindtap="chooseAvatar" style="position: relative; left: -231rpx; top: -558rpx">上传头像</button>
 
     <!-- 操作按钮区 -->
     <view class="button-container">
-      <button class="mainpage-btn" bindtap="mainpage">返回主页</button>
-      <button class="logout-btn" bindtap="logout">退出登录</button>
+      <button class="mainpage-btn" bindtap="mainpage" style="position: relative; left: 0rpx; top: -835rpx; height: 70rpx; display: block; box-sizing: border-box">返回主页</button>
+      <button class="logout-btn" bindtap="logout" style="position: relative; left: 64rpx; top: -1175rpx; height: 74rpx; display: block; box-sizing: border-box">退出登录</button>
     </view>
   </view>
 </view>

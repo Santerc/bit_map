@@ -20,7 +20,7 @@
 </view>
 
 <!-- 搜索结果 -->
-<view wx:for="{{showData}}" wx:key="name" class="building-item">
+<view wx:for="{{showData}}" wx:key="name" class="building-item" animation="{{item.animation}}">
   <view class="building-card">
     <navigator class="img" url='details?bid={{item._id}}'>
       <image src="{{imgCDN}}{{item.img[0]}}" mode="aspectFill" class="building-img" />
